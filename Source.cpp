@@ -8,9 +8,9 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-#define WIN 100
+#define WIN 1000
 #define	DRAW 0
-#define LOSS -100
+#define LOSS -1000
 
 #define AI_MARKER 'O'
 #define PLAYER_MARKER 'X'
@@ -64,7 +64,7 @@ std::vector<std::pair<int, int>> get_legal_moves(char board[3][3])
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if(board[i][j] != AI_MARKER && board[i][j] != PLAYER_MARKER)
+			if (board[i][j] != AI_MARKER && board[i][j] != PLAYER_MARKER)
 			{
 				legal_moves.push_back(std::make_pair(i, j));
 			}
@@ -72,6 +72,22 @@ std::vector<std::pair<int, int>> get_legal_moves(char board[3][3])
 	}
 
 	return legal_moves;
+}
+
+// Check if a position is occupied
+bool position_occupied(char board[3][3], std::pair<int, int> pos)
+{
+	std::vector<std::pair<int, int>> legal_moves = get_legal_moves(board);
+
+	for (int i = 0; i < legal_moves.size(); i++)
+	{
+		if (pos.first == legal_moves[i].first && pos.second == legal_moves[i].second)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 // Get all board positions occupied by the given marker
@@ -96,17 +112,16 @@ std::vector<std::pair<int, int>> get_occupied_positions(char board[3][3], char m
 // Check if the board is full
 bool board_is_full(char board[3][3])
 {
-	bool is_full = true;
-	
-	for (int i = 0; i < 3; i++)
+	std::vector<std::pair<int, int>> legal_moves = get_legal_moves(board);
+
+	if (0 == legal_moves.size())
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (board[i][j]) { is_full = false; break; }
-		}
+		return true;
 	}
-	
-	return is_full;
+	else
+	{
+		return false;
+	}
 }
 
 // Check if the game has been won
@@ -207,9 +222,9 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 		{ 
 			int score = minimax_optimization(board, PLAYER_MARKER, depth + 1).first;
 
-			if (best_score <= score) 
+			if (best_score < score) 
 			{
-				best_score = score;
+				best_score = score - depth * 10;
 				best_move = curr_move;
 			}
 
@@ -218,9 +233,9 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 		{ 
 			int score = minimax_optimization(board, AI_MARKER, depth + 1).first;
 
-			if (best_score >= score) 
+			if (best_score > score) 
 			{
-				best_score = score;
+				best_score = score + depth * 10;
 				best_move = curr_move;
 			}
 
@@ -236,14 +251,17 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 // Check if the game is finished
 bool game_is_done(char board[3][3])
 {
-	if (board_is_full(board) || DRAW != get_board_state(board, AI_MARKER))
+	if (board_is_full(board))
 	{
 		return true;
 	}
-	else
+
+	if (DRAW != get_board_state(board, AI_MARKER)) 
 	{
-		return false;
+		return true;
 	}
+
+	return false;
 }
 
 
@@ -266,7 +284,7 @@ int main()
 	char board[3][3] = { EMPTY_SPACE };
 
 	cout << "********************************\n\n\tTic Tac Toe AI\n\n********************************" << endl << endl;
-	cout << "Player = X\t\t AI Computer = O" << endl << endl;
+	cout << "Player = X\t AI Computer = O" << endl << endl;
 
 	print_board(board);
 
@@ -279,7 +297,15 @@ int main()
 		cin >> col;
 		cout << endl << endl;
 
-		board[row][col] = PLAYER_MARKER;
+		if (position_occupied(board, std::make_pair(row, col)))
+		{
+			cout << "The position (" << row << ", " << col << ") is occupied. Try another one..." << endl;
+			continue;
+		}
+		else
+		{
+			board[row][col] = PLAYER_MARKER;
+		}
 
 		std::pair<int, std::pair<int, int>> ai_move = minimax_optimization(board, AI_MARKER, START_DEPTH);
 
@@ -291,7 +317,6 @@ int main()
 	cout << "********** GAME OVER **********" << endl << endl;
 
 	int player_state = get_board_state(board, PLAYER_MARKER);
-	print_game_state(player_state);
 
 	cout << "PLAYER "; print_game_state(player_state);
 
