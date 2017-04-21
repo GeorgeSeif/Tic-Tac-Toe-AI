@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <vector>
 #include <array>
-#include <tuple>
 
 using std::cout;
 using std::cin;
@@ -21,7 +20,7 @@ using std::endl;
 // Print game state
 void print_game_state(int state)
 {
-	if (WIN == state) { cout << "WIN" << endl;  }
+	if (WIN == state) { cout << "WIN" << endl; }
 	else if (DRAW == state) { cout << "DRAW" << endl; }
 	else if (LOSS == state) { cout << "LOSS" << endl; }
 }
@@ -94,7 +93,7 @@ bool position_occupied(char board[3][3], std::pair<int, int> pos)
 std::vector<std::pair<int, int>> get_occupied_positions(char board[3][3], char marker)
 {
 	std::vector<std::pair<int, int>> occupied_positions;
-	
+
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -179,7 +178,7 @@ int get_board_state(char board[3][3], char marker)
 	{
 		return WIN;
 	}
-	
+
 	occupied_positions = get_occupied_positions(board, opponent_marker);
 	bool is_lost = game_is_won(occupied_positions);
 
@@ -195,15 +194,17 @@ int get_board_state(char board[3][3], char marker)
 	}
 
 	return DRAW;
-	
+
 }
 
 // Apply the minimax game optimization algorithm
 std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char marker, int depth)
 {
+	// Initialize best move
 	std::pair<int, int> best_move = std::make_pair(-1, -1);
 	int best_score = (marker == AI_MARKER) ? LOSS : WIN;
 
+	// If we hit a terminal state (leaf node), return the best score and move
 	if (board_is_full(board) || DRAW != get_board_state(board, AI_MARKER))
 	{
 		best_score = get_board_state(board, AI_MARKER);
@@ -213,27 +214,27 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 	std::vector<std::pair<int, int>> legal_moves = get_legal_moves(board);
 
 	for (int i = 0; i < legal_moves.size(); i++)
-	{ 
+	{
 		std::pair<int, int> curr_move = legal_moves[i];
 		board[curr_move.first][curr_move.second] = marker;
 
 		// Maximizing player's turn
 		if (marker == AI_MARKER)
-		{ 
+		{
 			int score = minimax_optimization(board, PLAYER_MARKER, depth + 1).first;
 
-			if (best_score < score) 
+			if (best_score < score)
 			{
 				best_score = score - depth * 10;
 				best_move = curr_move;
 			}
 
 		} // Minimizing opponent's turn
-		else 
-		{ 
+		else
+		{
 			int score = minimax_optimization(board, AI_MARKER, depth + 1).first;
 
-			if (best_score > score) 
+			if (best_score > score)
 			{
 				best_score = score + depth * 10;
 				best_move = curr_move;
@@ -242,9 +243,9 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 		}
 
 		board[curr_move.first][curr_move.second] = EMPTY_SPACE; // Undo move
-		
+
 	}
-	
+
 	return std::make_pair(best_score, best_move);
 }
 
@@ -256,7 +257,7 @@ bool game_is_done(char board[3][3])
 		return true;
 	}
 
-	if (DRAW != get_board_state(board, AI_MARKER)) 
+	if (DRAW != get_board_state(board, AI_MARKER))
 	{
 		return true;
 	}
@@ -267,20 +268,6 @@ bool game_is_done(char board[3][3])
 
 int main()
 {
-	/*char board[3][3] = { EMPTY_SPACE };
-	board[2][0] = PLAYER_MARKER;
-	board[1][2] = AI_MARKER;
-	board[0][0] = AI_MARKER;
-	board[2][1] = PLAYER_MARKER;
-	board[0][2] = PLAYER_MARKER;
-
-
-	print_board(board);
-
-	int board_state = get_board_state(board, AI_MARKER);
-
-	print_game_state(board_state);*/
-
 	char board[3][3] = { EMPTY_SPACE };
 
 	cout << "********************************\n\n\tTic Tac Toe AI\n\n********************************" << endl << endl;
