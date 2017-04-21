@@ -5,6 +5,7 @@
 #include <tuple>
 
 using std::cout;
+using std::cin;
 using std::endl;
 
 #define WIN 100
@@ -232,9 +233,23 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 	return std::make_pair(best_score, best_move);
 }
 
+// Check if the game is finished
+bool game_is_done(char board[3][3])
+{
+	if (board_is_full(board) || DRAW != get_board_state(board, AI_MARKER))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
 int main()
 {
-	char board[3][3] = { EMPTY_SPACE };
+	/*char board[3][3] = { EMPTY_SPACE };
 	board[2][0] = PLAYER_MARKER;
 	board[1][2] = AI_MARKER;
 	board[0][0] = AI_MARKER;
@@ -246,11 +261,39 @@ int main()
 
 	int board_state = get_board_state(board, AI_MARKER);
 
-	print_game_state(board_state);
+	print_game_state(board_state);*/
 
-	std::pair<int, std::pair<int, int>> bro = minimax_optimization(board, AI_MARKER, START_DEPTH);
+	char board[3][3] = { EMPTY_SPACE };
 
-	cout << "NEW POSITION = " << bro.second.first <<  "  " << bro.second.second << endl;
+	cout << "********************************\n\n\tTic Tac Toe AI\n\n********************************" << endl << endl;
+	cout << "Player = X\t\t AI Computer = O" << endl << endl;
+
+	print_board(board);
+
+	while (!game_is_done(board))
+	{
+		int row, col;
+		cout << "Row play: ";
+		cin >> row;
+		cout << "Col play: ";
+		cin >> col;
+		cout << endl << endl;
+
+		board[row][col] = PLAYER_MARKER;
+
+		std::pair<int, std::pair<int, int>> ai_move = minimax_optimization(board, AI_MARKER, START_DEPTH);
+
+		board[ai_move.second.first][ai_move.second.second] = AI_MARKER;
+
+		print_board(board);
+	}
+
+	cout << "********** GAME OVER **********" << endl << endl;
+
+	int player_state = get_board_state(board, PLAYER_MARKER);
+	print_game_state(player_state);
+
+	cout << "PLAYER "; print_game_state(player_state);
 
 	return 0;
 
