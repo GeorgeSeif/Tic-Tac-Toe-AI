@@ -198,7 +198,7 @@ int get_board_state(char board[3][3], char marker)
 }
 
 // Apply the minimax game optimization algorithm
-std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char marker, int depth)
+std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char marker, int depth, int alpha, int beta)
 {
 	// Initialize best move
 	std::pair<int, int> best_move = std::make_pair(-1, -1);
@@ -221,23 +221,42 @@ std::pair<int, std::pair<int, int>> minimax_optimization(char board[3][3], char 
 		// Maximizing player's turn
 		if (marker == AI_MARKER)
 		{
-			int score = minimax_optimization(board, PLAYER_MARKER, depth + 1).first;
+			int score = minimax_optimization(board, PLAYER_MARKER, depth + 1, alpha, beta).first;
 
+			// Get the best scoring move
 			if (best_score < score)
 			{
 				best_score = score - depth * 10;
 				best_move = curr_move;
+
+				// Check if this branch's best move is worse than the best
+				// option of a previously search branch. If it is, skip it
+				alpha = std::max(alpha, best_score);
+				board[curr_move.first][curr_move.second] = EMPTY_SPACE;
+				if (beta <= alpha) 
+				{ 
+					break; 
+				}
 			}
 
 		} // Minimizing opponent's turn
 		else
 		{
-			int score = minimax_optimization(board, AI_MARKER, depth + 1).first;
+			int score = minimax_optimization(board, AI_MARKER, depth + 1, alpha, beta).first;
 
 			if (best_score > score)
 			{
 				best_score = score + depth * 10;
 				best_move = curr_move;
+
+				// Check if this branch's best move is worse than the best
+				// option of a previously search branch. If it is, skip it
+				beta = std::min(beta, best_score);
+				board[curr_move.first][curr_move.second] = EMPTY_SPACE;
+				if (beta <= alpha) 
+				{ 
+					break; 
+				}
 			}
 
 		}
@@ -294,7 +313,7 @@ int main()
 			board[row][col] = PLAYER_MARKER;
 		}
 
-		std::pair<int, std::pair<int, int>> ai_move = minimax_optimization(board, AI_MARKER, START_DEPTH);
+		std::pair<int, std::pair<int, int>> ai_move = minimax_optimization(board, AI_MARKER, START_DEPTH, LOSS, WIN);
 
 		board[ai_move.second.first][ai_move.second.second] = AI_MARKER;
 
