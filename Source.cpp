@@ -320,7 +320,7 @@ int main()
 		print_board(board);
 	}
 
-	cout << "********** GAME OVER **********" << endl << endl;
+	cout << "-------------- GAME OVER -----------" << endl << endl;
 
 	int player_state = get_board_state(board, PLAYER_MARKER);
 
