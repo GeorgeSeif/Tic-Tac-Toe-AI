@@ -297,11 +297,29 @@ int main()
 	while (!game_is_done(board))
 	{
 		int row, col;
+		
 		cout << "Row play: ";
-		cin >> row;
+		try {
+		    if (!(cin >> row)) {
+		        throw std::runtime_error("Row must be 0, 1 or 2");
+		    }
+		} catch (std::runtime_error& e) {
+		        std::cerr << "Error in row nuumber" << endl;
+		        return 1;
+		}
+		
 		cout << "Col play: ";
-		cin >> col;
+		try {
+		    if (!(cin >> col)) {
+		        throw std::runtime_error("Column must be 0, 1 or 2");
+		    }
+		} catch (std::runtime_error& e) {
+		        std::cerr << "Error in column nuumber" << endl;
+		        return 1;
+		}
+
 		cout << endl << endl;
+		
 
 		if (position_occupied(board, std::make_pair(row, col)))
 		{
