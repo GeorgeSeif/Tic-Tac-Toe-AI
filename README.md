@@ -1,3 +1,7 @@
+Command to compile Source.cpp
+
+```g++ -I . -o object_name Source.cpp```
+
 # Tic-Tac-Toe AI
 
 A tic-tac-toe AI program that never loses. This program uses the minimax algorithm with alpha-beta pruning to reduce the search space.
