@@ -10,3 +10,6 @@ set(SOURCE_EXE src/Source.cpp)
 
 add_executable(main ${SOURCE_EXE})
 target_link_libraries(main)
+
+add_executable(test_source src/test.cpp)
+target_link_libraries(TestInstantiator vtkCommon)
