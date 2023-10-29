@@ -1,12 +1,20 @@
 Command to compile Source.cpp
 
+Build the project:
 ```bash
-chmod +x rundocker.sh
 sudo docker build -t project_cpp .
-sudo docker run --rm -i project_cpp ./scripts/rundocker.sh
 ```
 
-```g++ -I . -o object_name Source.cpp```
+Test the software
+```bash
+sudo docker run --rm -i project_cpp bash scripts/test.sh
+```
+
+Run
+```bash
+sudo docker run --rm -i project_cpp bash scripts/run.sh
+```
+
 
 # Tic-Tac-Toe AI
 

@@ -1,3 +1,4 @@
 tic-tac-toe-AI.vcxproj.filters
 tic-tac-toe-AI.vcxproj
 build
+googletest
