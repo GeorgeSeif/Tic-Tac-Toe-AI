@@ -47,22 +47,11 @@ fi
 echo " -- Installing Google Test at /usr/lib and /usr/include (needs sudo)"
 (
         cd ${ROOT_DIR}/googletest &&
-                sudo mv libgtest.a /usr/lib && # Move lib to system path
-                sudo mv include/gtest /usr/include # Move includes to system path
+                mv libgtest.a /usr/lib && # Move lib to system path
+                mv include/gtest /usr/include # Move includes to system path
 )
 if [ $? -ne 0 ]; then
         echo "Could not install"
         cleanup
         exit 1
 fi
-# To Compile Source code
-
-echo " -- Running Test"
-# Compile from stdin. - signifies stdin. -xc++ specifies language is c++
-clang++ src/test.cpp -Wall -Wextra -o build/gtesttest -std=${CXX_STANDARD} -lgtest -lpthread 
-
-./build/gtesttest
-
-echo " -- Cleaning up"
-
-cleanup

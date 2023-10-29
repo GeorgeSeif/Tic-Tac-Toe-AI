@@ -55,4 +55,4 @@ minimax(0, 0, true, -INFINITY, +INFINITY)
 ~~~~
 
 ## Minimax Algorithm Visualisation
-![alt text](https://github.com/GeorgeSeif/Tic-Tac-Toe-AI/blob/master/minimax_vis.png)
+![alt text](attach/minimax_vis.png)

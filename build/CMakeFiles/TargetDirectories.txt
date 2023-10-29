@@ -1,3 +1,0 @@
-/home/ansafronov/Tic-Tac-Toe-AI/build/CMakeFiles/main.dir
-/home/ansafronov/Tic-Tac-Toe-AI/build/CMakeFiles/edit_cache.dir
-/home/ansafronov/Tic-Tac-Toe-AI/build/CMakeFiles/rebuild_cache.dir
