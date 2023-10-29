@@ -1,12 +1,22 @@
 #include <gtest/gtest.h>
-#include <../src/utils.cpp>
+#include "utils.cpp"
 #include <iostream>
 #include <vector>
 #include <array>
 
+// // TEST(ExceptionTests, Invalidcin) {
+// // 	EXPECT_THROW(get_row(), std::runtime_error);
+// }
+
 // TEST(ExceptionTests, Invalidcin) {
-// 	EXPECT_THROW(get_row(), std::runtime_error);
-//}
+//     std::ifstream ifs;
+//     ifs.open("someFile", std::ifstream::in);
+//     // in production code pass std::cin
+//     std::cout << "readUserInput from std::cin: " << readUserInput(std::cin) << std::endl;
+//     // in testing pass some mock data from the file (or whatever)
+//     std::cout << "readUserInput from ifs: " << readUserInput(ifs) << std::endl;
+//     ifs.close();
+// //}
 
 TEST(BoardStateTest, getboardstatetest) {
 	std::vector<std::pair<int, int>> legal_moves;
