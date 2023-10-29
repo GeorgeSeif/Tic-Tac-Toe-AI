@@ -1,2 +1,3 @@
-sudo docker build -t project_cpp .
-sudo docker run --rm -i project_cpp
+chmod +x ./scripts/test.sh
+chmod +x ./scripts/build.sh
+chmod +x ./scripts/run.sh

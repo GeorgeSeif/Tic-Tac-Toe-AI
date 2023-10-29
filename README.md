@@ -2,7 +2,8 @@ Command to compile Source.cpp
 
 ```bash
 chmod +x rundocker.sh
-./rundocker.sh
+sudo docker build -t project_cpp .
+sudo docker run --rm -i project_cpp ./scripts/rundocker.sh
 ```
 
 ```g++ -I . -o object_name Source.cpp```

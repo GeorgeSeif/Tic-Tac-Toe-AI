@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <array>
-#include <utils.cpp>
+#include <../src/utils.cpp>
 
 using std::cout;
 using std::cin;

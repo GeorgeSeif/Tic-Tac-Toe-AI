@@ -16,9 +16,9 @@ RUN mkdir build
 # RUN chmod +x ./scripts/build.sh
 
 RUN ./scripts/prereqs.sh
-RUN ./scripts/test.sh
-RUN ./scripts/build.sh
-RUN ./scripts/run.sh
+# RUN ./scripts/test.sh
+# RUN ./scripts/build.sh
+# RUN ./scripts/run.sh
 
 
 # CMD ["./Game"]
