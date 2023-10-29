@@ -59,7 +59,7 @@ fi
 
 echo " -- Running Test"
 # Compile from stdin. - signifies stdin. -xc++ specifies language is c++
-clang++ test/test_Source.cpp -Wall -Wextra -o build/gtesttest -std=${CXX_STANDARD} -lgtest -lpthread 
+clang++ src/test.cpp -Wall -Wextra -o build/gtesttest -std=${CXX_STANDARD} -lgtest -lpthread 
 
 ./build/gtesttest
 

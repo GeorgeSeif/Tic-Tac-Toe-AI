@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <utils.cpp>
+#include <../src/utils.cpp>
 #include <iostream>
 #include <vector>
 #include <array>

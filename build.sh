@@ -1,1 +1,3 @@
-docker build -t project_cpp .
+cmake -B build
+cd build 
+make
