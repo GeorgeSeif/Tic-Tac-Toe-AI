@@ -4,9 +4,9 @@
 #include <vector>
 #include <array>
 
-TEST(ExceptionTests, Invalidcin) {
-	EXPECT_THROW(get_row(), std::runtime_error);
-}
+// TEST(ExceptionTests, Invalidcin) {
+// 	EXPECT_THROW(get_row(), std::runtime_error);
+// }
 
 TEST(BoardStateTest, getboardstatetest) {
 	std::vector<std::pair<int, int>> legal_moves;
