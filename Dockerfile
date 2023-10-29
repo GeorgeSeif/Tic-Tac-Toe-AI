@@ -1,7 +1,7 @@
 FROM gcc:latest as base
 
 RUN apt-get update
-RUN apt-get install libgtest-dev -y
+# RUN apt-get install libgtest-dev -y
 
 COPY . /usr/src/cpp_test
 
