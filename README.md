@@ -1,5 +1,10 @@
 Command to compile Source.cpp
 
+```bash
+chmod +x rundocker.sh
+./rundocker.sh
+```
+
 ```g++ -I . -o object_name Source.cpp```
 
 # Tic-Tac-Toe AI
