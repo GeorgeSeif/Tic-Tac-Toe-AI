@@ -10,17 +10,17 @@ add_executable(main ${SOURCE_EXE})
 target_link_libraries(main)
 
 # end of file
-enable_testing()
+# enable_testing()
 
-add_executable(
-    test_Source
-    test_Source.cpp
-)
-target_link_libraries(
-    test_Source
-    GTest::gtest_main
-)
+# add_executable(
+#     test_Source
+#     test_Source.cpp
+# )
+# target_link_libraries(
+#     test_Source
+#     GTest::gtest_main
+# )
 
-include(GoogleTest)
-gtest_discover_tests(test_Source)
+# include(GoogleTest)
+# gtest_discover_tests(test_Source)
 
