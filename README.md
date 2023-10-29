@@ -16,15 +16,39 @@ Run
 sudo docker run --rm -i project_cpp bash scripts/run.sh
 ```
 
+# Reproducability in empty container
+
+Empty container with `ubuntu:23.04` requres up-to-date `git`, `cmake` and `g++`. You could install it with
+
+```bash
+apt install git cmake make g++
+```
+
+Then you need to run scripts to build dependancies and test software:
+
+```bash
+chmod +x scripts/prereqs.sh
+./scripts/prereqs.sh
+
+chmod +x scripts/build.sh
+./scripts/build.sh
+
+chmod +x scripts/test.sh
+./scripts/test.sh
+```
+
+And, finally run:
+
+```bash
+chmod +x scripts/run.sh
+./scripts/run.sh
+```
 
 # Tic-Tac-Toe AI
 
 A tic-tac-toe AI program that never loses. This program uses the minimax algorithm with alpha-beta pruning to reduce the search space.
 
 https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves
-
-## Usage
-Requires C++ 11
 
 ## Algorithm Details
 A **minimax** algorithm is a recursive algorithm for choosing the next move in an n-player game, usually a two-player, back and forth game. A value is associated with each position or state of the game. This value is computed by means of a position evaluation function and it indicates how good it would be for a player to reach that position. The player then makes the move that maximizes the minimum value of the position resulting from the opponent's possible following moves. If it is A's turn to move, A gives a value to each of his legal moves.
@@ -66,3 +90,6 @@ minimax(0, 0, true, -INFINITY, +INFINITY)
 
 ## Minimax Algorithm Visualisation
 ![alt text](attach/minimax_vis.png)
+
+# Documentation
+
