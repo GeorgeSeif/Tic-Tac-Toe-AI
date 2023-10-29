@@ -21,6 +21,7 @@ sudo docker run --rm -i project_cpp bash scripts/run.sh
 Empty container with `ubuntu:23.04` requres up-to-date `git`, `cmake` and `g++`. You could install it with
 
 ```bash
+apt upgrade
 apt install git cmake make g++
 ```
 
